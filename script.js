@@ -1,16 +1,20 @@
 const mainDiv = document.getElementById("root");
+const search = document.getElementById("search");
+const searchIcon = document.getElementById("search-icon");
 
-let cityName = `Texas`;
-
-const API_KEY = `064f8543c0055ed385d8ed5634c95ac9`;
-// const GET_WEATHER = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
-const CITY_COORDINATES = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${API_KEY}`;
+let cityName = `Preetz`;
+const API_KEY = `&appid=de4bd711217b7da44ed7480704925a3b`;
 
 const fetchData = async () => {
-  const fetchPromise = await fetch(`${CITY_COORDINATES}`);
-  const resolveData = await fetchPromise.json();
-  return resolveData;
+  const fetchRequest = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=${cityName}${API_KEY}`
+  );
+  let data = await fetchRequest.json();
+  return data;
 };
-fetchData().then(console.log);
 
-fetchData();
+fetchData().then((data) => {
+  console.log(data);
+});
+
+console.log(fetchData());
