@@ -1,9 +1,12 @@
 const mainDiv = document.getElementById("root");
 const search = document.getElementById("search");
-const countryContainer = document.querySelector(".country");
 const tempContainer = document.querySelector(".temp");
 const humidityContainer = document.querySelector(".humidity");
-const weatherDescriptionContainer =document.querySelector(".weatherdescription");
+const weatherDescriptionContainer = document.querySelector(
+  ".weatherdescription"
+);
+const weatherConditionContainer = document.querySelector(".weathercondition");
+const cityNameContainer = document.querySelector(".name");
 
 let cityName = `Preetz`;
 const API_KEY = `&appid=de4bd711217b7da44ed7480704925a3b`;
@@ -14,34 +17,23 @@ const fetchData = async () => {
   );
   let data = await fetchRequest.json();
 
-  // let temp = data.main.temp;
-  // let country = data.sys.country;
-  // let humidity = data.main.humidity;
-  // let temp_min = data.main.temp_min;
-  // let temp_max = data.main.temp_max;
-  // let weatherDescription = data.weather[0].description;
-  // let weatherCondition = data.weather[0].main;
-  // data.name = cityName;
-
   return data;
 };
 
 fetchData().then((data) => {
-  let temp = `Temperature ${data.main.temp}`;
-  let country = data.sys.country;
-  let humidity = `Humidity ${data.main.humidity}`;
-  let temp_min = data.main.temp_min;
-  let temp_max = data.main.temp_max;
-  let weather_description = `Weather condition: ${data.weather[0].description}`;
-  let weatherCondition = data.weather[0].main;
+  let temp = `Temperature: ${data.main.temp}`;
+  let humidity = `Humidity: ${data.main.humidity}`;
+  let weatherCondition = `Weather: ${data.weather[0].main}`;
+  let weather_description = `Description: ${data.weather[0].description}`;
   data.name = cityName;
 
-  countryContainer.append(country)
-  tempContainer.append(temp)
-  humidityContainer.append(humidity)
-  weatherDescriptionContainer.append(weather_description)
+  cityNameContainer.append(cityName)
+  tempContainer.append(temp);
+  humidityContainer.append(humidity);
+  weatherDescriptionContainer.append(weather_description);
+  weatherConditionContainer.append(weatherCondition);
+
   console.log(data);
 });
-
 
 console.table(fetchData());
