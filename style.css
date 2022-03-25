@@ -39,4 +39,10 @@
   .name {
     font-size: larger;
   }
+
+  #submit {
+    border-radius: 0.25em;
+    padding: 0.1em 0.25em;
+    box-shadow: 0.1em 0.1em 0.1em #662bbe;
+  }
 }

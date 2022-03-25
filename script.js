@@ -6,34 +6,31 @@ const weatherDescriptionContainer = document.querySelector(
   ".weatherdescription"
 );
 const weatherConditionContainer = document.querySelector(".weathercondition");
-const cityNameContainer = document.querySelector(".name");
-
-let cityName = `Preetz`;
+const locationName = document.querySelector(".citynamecontainer");
+const btn = document.querySelector("#submit");
+const group = document.querySelector(".group");
 const API_KEY = `&appid=de4bd711217b7da44ed7480704925a3b`;
+let cityName = `Copenhagen`;
+
+btn.addEventListener("click", () => {
+  cityName = search.value;
+  appendData();
+});
 
 const fetchData = async () => {
   const fetchRequest = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${cityName}${API_KEY}&units=metric`
   );
   let data = await fetchRequest.json();
-
   return data;
 };
 
-fetchData().then((data) => {
-  let temp = `Temperature: ${data.main.temp}`;
-  let humidity = `Humidity: ${data.main.humidity}`;
-  let weatherCondition = `Weather: ${data.weather[0].main}`;
-  let weather_description = `Description: ${data.weather[0].description}`;
-  data.name = cityName;
-
-  cityNameContainer.append(cityName)
-  tempContainer.append(temp);
-  humidityContainer.append(humidity);
-  weatherDescriptionContainer.append(weather_description);
-  weatherConditionContainer.append(weatherCondition);
-
-  console.log(data);
-});
-
-console.table(fetchData());
+const appendData = () => {
+  fetchData().then((data) => {
+    tempContainer.textContent = `Temperature: ${data.main.temp}c`;
+    humidityContainer.textContent = `Humidity: ${data.main.humidity}%`;
+    weatherConditionContainer.textContent = `Weather: ${data.weather[0].main}`;
+    weatherDescriptionContainer.textContent = `Description: ${data.weather[0].description}`;
+    locationName.textContent = `${data.name}`;
+  });
+};
